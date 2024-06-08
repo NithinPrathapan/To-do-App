@@ -21,11 +21,22 @@ const ListContainer = ({ item }) => {
       return;
     }
   };
+  const handleUpdate = async () => {
+    try {
+      const response = await axios.put(`http://localhost:5000/api/${item._id}`,{
+        
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className="bg-black  border-b  flex  py-4  justify-between uppercase font-semibold text-teal-300">
       <h2 className="">{item.text}</h2>
       <div className="flex gap-2 items-center justify-center">
         <FaRegEdit
+          onClick={handleUpdate}
           size={24}
           className="cursor-pointer hover:scale-110 transition-all duration-300"
         />
