@@ -19,11 +19,11 @@ const Home = () => {
       return alert("Please enter the text");
     }
     try {
-      const response = await axios.post("http://localhost:5000/api/create", {
+      await axios.post("http://localhost:5000/api/create", {
         todo,
       });
       fetchTodos();
-      console.log(response);
+      setTodo("");
     } catch (error) {
       console.log(error);
     }
@@ -43,8 +43,7 @@ const Home = () => {
     if (userConfirmed == true) {
       try {
         console.log(id);
-        const response = await axios.delete(`http://localhost:5000/api/${id}`);
-        console.log(response);
+        await axios.delete(`http://localhost:5000/api/${id}`);
         fetchTodos();
       } catch (error) {
         console.log(error);
@@ -57,11 +56,13 @@ const Home = () => {
     console.log(todo);
     try {
       setUpdating(true);
-      const response = await axios.put(`http://localhost:5000/api/${id}`, {
+      await axios.put(`http://localhost:5000/api/${id}`, {
         text: todo,
       });
+
       fetchTodos();
       setUpdating(false);
+      setTodo("");
     } catch (error) {
       console.log(error);
     }
@@ -78,6 +79,7 @@ const Home = () => {
           onChange={(e) => setTodo(e.target.value)}
           value={todo}
           type="text"
+          id="input"
           className="p-4 rounded-md ring-2 ring-black outline-none border-2 bg-gray-100 placeholder:tracking-widest w-full"
         />
         {updating ? (
